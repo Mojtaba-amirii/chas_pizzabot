@@ -1,60 +1,47 @@
 const vegetarian = "Vegetarian Pizza";
 const hawaiian = "Hawaiian Pizza";
 const pepperoni = "Pepperoni Pizza";
-let cokingTime = 0;
 const pizzaPrice = 80;
 
-//Put your Javscript code here:
 alert(
-  "Hey! Happy to serve your pizza. On our menu we have " + vegetarian,
-  +hawaiian,
-  +" and" + pepperoni
+  `Hey! Happy to serve your pizza. On our menu we have ${vegetarian}, ${hawaiian} and ${pepperoni}.`
 );
+
 let orderName = prompt("Enter the name of the pizza you want to order today");
 
-const orderQuantity = prompt("How many of " + orderName + " do you want?");
+const orderQuantity = prompt(`How many of ${orderName} do you want?`);
 
 if (checkOrderName(orderName)) {
+  const orderTotal = totalCost(orderQuantity);
+  const cookingTime = calculateCookingTime(orderQuantity);
   alert(
-    "Great, I'll get started on your " +
-      orderName +
-      " right away, it will cost " +
-      orderTotal +
-      " kr" +
-      "The pizzas will take " +
-      cokingTime +
-      "  minutes"
+    `Great, I'll get started on your ${orderName} right away, it will cost ${orderTotal} kr. The pizzas will take ${cookingTime} minutes.`
   );
 } else {
-  alert(orderName + " is not on the menue!");
+  alert(`${orderName} is not on the menu!`);
 }
 
-function checkOrderName(theorderName) {
-  if (
-    theorderName === vegetarian ||
-    theorderName === hawaiian ||
-    theorderName === pepperoni
-  ) {
-    return true;
-  } else {
-    return false;
-  }
+function checkOrderName(orderName) {
+  return (
+    orderName === vegetarian ||
+    orderName === hawaiian ||
+    orderName === pepperoni
+  );
 }
 
 function totalCost(orderQuantity) {
   return orderQuantity * pizzaPrice;
 }
 
-totalCost();
-
-function cookingTime(orderQuantity) {
-  if (orderQuantity <= 2 && orderQuantity >= 1) {
-    return 10;
-  } else if (orderQuantity >= 2 && orderQuantity <= 5) {
-    return 15;
-  } else {
-    return 20;
+function calculateCookingTime(orderQuantity) {
+  switch (true) {
+    case orderQuantity <= 2:
+      return 10;
+    case orderQuantity <= 5:
+      return 15;
+    case orderQuantity > 5 && orderQuantity <= 10:
+      return 20;
+    default:
+      return 25;
   }
 }
-
-cookingTime();
